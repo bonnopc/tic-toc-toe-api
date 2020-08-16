@@ -1,0 +1,42 @@
+scalar ObjectId
+
+enum GameValue {
+    X
+    O
+}
+
+enum Winner {
+    X
+    O
+    DRAWN
+}
+
+type Score {
+    rowIndex: Number!,
+    colIndex: Number!,
+    value: GameValue!
+}
+
+type Game {
+    uid: String,
+    scores: [Score],
+    winner: Winner
+}
+
+type FilterGameInput {
+    uid: String!
+}
+
+type Query {
+    game (filter: FilterGameInput!): Game,
+}
+
+type Mutation {
+    createGame (score: Score!): Game
+    updateGame (uid: String! score: Score!): Game 
+}
+
+schema {
+    query: Query
+    mutation: Mutation
+}
