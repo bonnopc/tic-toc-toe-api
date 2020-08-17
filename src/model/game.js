@@ -36,7 +36,10 @@ const GameSchema = new Schema({
             trim: true
         }
     }],
-    winner: { type: String }
+    winner: { 
+        type: String,
+        default: null 
+    }
 },
 {
     timestamps: true,

@@ -1,4 +1,4 @@
-import GameModel from '../model';
+import { GameModel } from '../model';
 
 export default async () => {
     try {

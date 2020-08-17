@@ -1,5 +1,10 @@
 scalar ObjectId
 
+interface BaseResponse {
+    message: String!
+    statusCode: Int!
+}
+
 enum GameValue {
     X
     O
@@ -12,8 +17,14 @@ enum Winner {
 }
 
 type Score {
-    rowIndex: Number!,
-    colIndex: Number!,
+    rowIndex: Int,
+    colIndex: Int,
+    value: GameValue
+}
+
+input ScoreInput {
+    rowIndex: Int!,
+    colIndex: Int!,
     value: GameValue!
 }
 
@@ -23,8 +34,14 @@ type Game {
     winner: Winner
 }
 
-type FilterGameInput {
+input FilterGameInput {
     uid: String!
+}
+
+type GameResponse implements BaseResponse {
+    statusCode: Int!
+    message: String!
+    result: Game
 }
 
 type Query {
@@ -32,8 +49,8 @@ type Query {
 }
 
 type Mutation {
-    createGame (score: Score!): Game
-    updateGame (uid: String! score: Score!): Game 
+    createGame (score: ScoreInput!): GameResponse
+    updateGame (uid: String! score: ScoreInput!): GameResponse 
 }
 
 schema {

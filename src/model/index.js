@@ -1,2 +1,2 @@
-import { default as GameModel } from "./game";
-import { default as GameLogModel } from "./gameLog";
+export { default as GameModel } from "./game";
+export { default as GameLogModel } from "./gameLog";
