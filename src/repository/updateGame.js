@@ -17,7 +17,7 @@ export default async ({ uid, score }) => {
             return sendErrorResponse("NOT_ACCEPTABLE");
         }
 
-        const scoresData = [ ..._game.scores, score ] 
+        const scoresData = [ ..._game.scores, score ];
 
         const gameData = await GameModel.findOneAndUpdate(
             { uid }, 

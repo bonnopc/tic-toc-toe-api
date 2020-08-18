@@ -13,7 +13,7 @@ export default async ({ gameUid, pagination }) => {
 
         const gameLogsData = await GameLogModel.find({ gameUid }).skip(skip).limit(limit).sort({ createdAt: -1 });
 
-        console.log("gameLogsData", gameLogsData)
+        // console.log("gameLogsData", gameLogsData)
 
         if(!gameLogsData || !gameLogsData.length) return sendErrorResponse("DATA_NOT_FOUND")
         

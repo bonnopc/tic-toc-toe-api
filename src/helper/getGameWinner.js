@@ -1,17 +1,12 @@
 export default function (scores) {
     let winner = null;
 
-    console.log("TOTAL SCORES", scores)
-
     if(scores && scores.length){
-        // scores.forEach((score,index) => {
-        //     console.log("score score", score.rowIndex);
-        // })
-        // const xValuedScores = scores.filter()
         scores.filter(scr => scr !== null && typeof scr !== "undefined").forEach((score,index) => {
-            // console.log("SLOT 1", scores.filter((s,i) => i !== index && s.value && s.value === score.value && (s.rowIndex === score.rowIndex || s.colIndex === score.colIndex)).length)
-
-            if(scores.filter((s,i) => i !== index && s.value && s.value === score.value && (s.rowIndex === score.rowIndex || s.colIndex === score.colIndex)).length === 2){
+            if(
+                scores.filter((s,i) => i !== index && s.value && s.value === score.value && s.rowIndex === score.rowIndex).length === 2 ||
+                scores.filter((s,i) => i !== index && s.value && s.value === score.value && s.colIndex === score.colIndex).length === 2
+            ){
                 winner = score.value;
             } else if(
                 score.rowIndex === score.colIndex &&
@@ -22,13 +17,13 @@ export default function (scores) {
         });
 
         if(!winner){
-            let valueForMiddleBox = scores.filter(r => r.colIndex && r.rowIndex && r.colIndex === r.rowIndex).length ? scores.filter(r => r.colIndex && r.rowIndex && r.colIndex === r.rowIndex)[0] : null;
+            let middleBox = scores.filter(r => r.colIndex === 1 && r.rowIndex === 1).length ? scores.filter(r => r.colIndex === 1 && r.rowIndex === 1)[0] : null;
 
             if(
-                valueForMiddleBox &&
-                scores.filter(s => s.value === valueForMiddleBox && ((s.rowIndex === 0 && s.colIndex === 2) || (s.rowIndex === 2 && s.colIndex === 0))).length === 2
+                middleBox && middleBox.value &&
+                scores.filter(s => s.value === middleBox.value && ((s.rowIndex === 0 && s.colIndex === 2) || (s.rowIndex === 2 && s.colIndex === 0))).length === 2
             ){
-                winner = valueForMiddleBox;
+                winner = middleBox.value;
             }
         }
 
