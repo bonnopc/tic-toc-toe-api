@@ -6,10 +6,7 @@
         "test": {
             "presets": [
                 "es2015"
-            ],
-            "babelOptions": {
-                "compact": false
-            }
+            ]
         }
     }
 }
