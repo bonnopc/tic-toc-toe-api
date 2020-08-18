@@ -34,8 +34,20 @@ type Game {
     winner: Winner
 }
 
+type GameLog {
+    gameUid: String,
+    value: String,
+    rowIndex: Int,
+    colIndex: Int
+}
+
 input FilterGameInput {
     uid: String!
+}
+
+input PaginationInput {
+    limit: Int!
+    skip: Int!
 }
 
 type GameResponse implements BaseResponse {
@@ -44,8 +56,15 @@ type GameResponse implements BaseResponse {
     result: Game
 }
 
+type GameLogResponse implements BaseResponse {
+    statusCode: Int!
+    message: String!
+    result: [GameLog]
+}
+
 type Query {
-    game (filter: FilterGameInput!): Game,
+    game (uid: String!): GameResponse,
+    gameLogs (gameUid: String! pagination: PaginationInput): GameLogResponse
 }
 
 type Mutation {

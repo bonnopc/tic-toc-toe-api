@@ -1,9 +1,12 @@
-import { getGame, createGame, updateGame } from "../../repository";
+import { getGame, createGame, updateGame, getGameLogs } from "../../repository";
 
 export default {
     Query: {
         async game (root, args) {
             return await getGame(args);
+        },
+        async gameLogs (root, args) {
+            return await getGameLogs(args);
         }
     },
     Mutation: {

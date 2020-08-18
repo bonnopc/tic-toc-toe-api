@@ -1,8 +1,14 @@
-export default async () => {
+import { sendResponse, sendErrorResponse } from "../helper";
+import GameModel from "../model/game";
+
+export default async ({ uid }) => {
     try {
-        return {}
+        const gameData = await GameModel.findOne({ uid });
+
+        if(!gameData) return sendErrorResponse("DATA_NOT_FOUND")
+        
+        return sendResponse(gameData);
     } catch (error) {
-        console.error(error);
-        throw new Error('Internal server error')
+        console.error("Err in getGame", error);
     }
 }

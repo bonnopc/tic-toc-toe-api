@@ -1,17 +1,14 @@
 import { sendResponse, sendErrorResponse, getGameWinner } from "../helper";
-import GameModel from "../model/game";
-import generateGameUid from "./generateGameUid";
+import { GameModel } from "../model";
 import createGameLog from "./createGameLog";
 
 export default async ({ uid, score }) => {
     try {
         const _game = await GameModel.findOne({ uid });
 
-        console.log("GAME FOUND ===>", _game)
-
         if(!_game) return sendErrorResponse("DATA_NOT_FOUND");
-        if(_game && (_game.winner || (_game.scores && _game.scores.length >= 9))) return sendErrorResponse("GAME_ALREADY_FINISHED");
-        if(
+        else if(_game && (_game.winner || (_game.scores && _game.scores.length >= 9))) return sendErrorResponse("GAME_ALREADY_FINISHED");
+        else if(
             _game.scores && 
             _game.scores.length && 
             _game.scores.filter(sc => sc.rowIndex === score.rowIndex && sc.colIndex === score.colIndex) &&
@@ -24,20 +21,17 @@ export default async ({ uid, score }) => {
 
         const gameData = await GameModel.findOneAndUpdate(
             { uid }, 
-            { 
-                $set: {
-                    winner: getGameWinner(scoresData),
-                    scores: scoresData
-                }
-            }
+            { $set: {
+                winner: getGameWinner(scoresData),
+                scores: scoresData
+            }},
+            { new: true }
         );
-
-        console.log("gameData UPDATED ====>", gameData)
 
         if(gameData) createGameLog({ gameUid: uid, score })
 
         return sendResponse(gameData);
     } catch (error) {
-        console.error("Err in createGame", error);
+        console.error("Err in updateGame", error);
     }
 }

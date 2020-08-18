@@ -1,18 +1,23 @@
 export default function (scores) {
     let winner = null;
 
+    console.log("TOTAL SCORES", scores)
+
     if(scores && scores.length){
+        // scores.forEach((score,index) => {
+        //     console.log("score score", score.rowIndex);
+        // })
         // const xValuedScores = scores.filter()
-        scores.map(scr => scr !== null && typeof a !== "undefined").every((score,index) => {
-            if(scores.map((s,i) => i !== index).filter(s => s.value === score.value && (s.rowIndex === score.rowIndex || s.colIndex === score.colIndex)).length === 2){
+        scores.filter(scr => scr !== null && typeof scr !== "undefined").forEach((score,index) => {
+            // console.log("SLOT 1", scores.filter((s,i) => i !== index && s.value && s.value === score.value && (s.rowIndex === score.rowIndex || s.colIndex === score.colIndex)).length)
+
+            if(scores.filter((s,i) => i !== index && s.value && s.value === score.value && (s.rowIndex === score.rowIndex || s.colIndex === score.colIndex)).length === 2){
                 winner = score.value;
-                return;
             } else if(
                 score.rowIndex === score.colIndex &&
-                scores.map((s,i) => i !== index).filter(s => s.rowIndex === s.colIndex && s.value === score.value).length === 2
+                scores.filter((s,i) => i !== index && s.value && s.rowIndex === s.colIndex && s.value === score.value).length === 2
             ){
                 winner = score.value;
-                return;
             }
         });
 

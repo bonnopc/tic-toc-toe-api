@@ -1,5 +1,5 @@
 import { sendResponse } from "../helper";
-import GameModel from "../model/game";
+import { GameModel } from "../model";
 import generateGameUid from "./generateGameUid";
 import createGameLog from "./createGameLog";
 
