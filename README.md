@@ -3,7 +3,7 @@ This is an API repository of a very basic game **Tic-Toc-Toe**. This project was
 # Frontend
 For Frontend repository, please visit [https://github.com/bonnopc/tic-toc-toe-frontend](https://github.com/bonnopc/tic-toc-toe-frontend).
 
-# Task Requirement
+# Task/Requirement
 
 Program the game with crosses:
 
